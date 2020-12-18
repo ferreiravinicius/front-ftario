@@ -8,7 +8,7 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true, //enable typescript checks
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,

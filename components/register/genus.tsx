@@ -2,29 +2,59 @@ import { Block } from "baseui/block";
 import { Button, KIND, SHAPE, SIZE } from "baseui/button";
 import { Option, Select, TYPE, Value } from "baseui/select";
 import * as React from "react";
-import GenusAPI from "../../service/genus";
+import RegisterPlantContext from "../../contexts/register/showroom";
+import GenusAPI, { GenusOutput } from "../../service/genus";
 
 function first(arr: readonly any[]) {
   return arr[0] || null;
 }
 
-const RegisterPlant: React.FC = () => {
+export interface GenusStepProps {
+  nextStep: () => void;
+}
+
+//TODO: fill option when updating...
+const GenusStep: React.FC<GenusStepProps> = ({ nextStep }) => {
   const [genusOption, setGenusOption] = React.useState<Value>([]);
-  const [isCreating, setCreating] = React.useState<boolean>(false);
+  const [busy, setBusy] = React.useState<boolean>(false);
   const [options, setOptions] = React.useState<Option[]>([]);
 
-  const createGenus = async (value: Value) => {
-    setCreating(true);
-    const selected = first(value);
-    if (selected?.isCreatable) {
-      const name = selected.label;
-      const { error } = await GenusAPI.registerGenus({ name });
+  const { setFormGenus } = React.useContext(RegisterPlantContext);
+
+  const handleClick = async (value: Value) => {
+    setBusy(true);
+
+    const selectedOption = first(value);
+
+    console.log("Selected: ");
+    console.log(selectedOption);
+
+    let genus = {
+      id: selectedOption?.id,
+      name: selectedOption?.label,
+    };
+
+    if (selectedOption?.isCreatable) {
+      const name = selectedOption.label;
+      const { data, error } = await GenusAPI.registerGenus({ name });
       if (error) {
         console.log("Error at creating genus: ");
-        console.log(error);
+        setGenusOption([]);
+        setBusy(false);
+        return console.log(error);
+      } else {
+        console.log("Got data: ");
+        console.log(data);
+        genus = {
+          id: data?.id,
+          name: data?.name,
+        };
       }
     }
-    setCreating(false);
+
+    setFormGenus(genus);
+    setBusy(false);
+    nextStep();
   };
 
   const filterGenus = async (text: string) => {
@@ -45,7 +75,7 @@ const RegisterPlant: React.FC = () => {
 
   return (
     <>
-      <Block>
+      <Block display="flex">
         <Select
           creatable
           options={options}
@@ -58,16 +88,16 @@ const RegisterPlant: React.FC = () => {
           }
           noResultsMsg="Type to filter or create."
           onChange={(params) => setGenusOption(params.value)}
-          disabled={isCreating}
+          disabled={busy}
         />
       </Block>
-      <Block>
+      <Block display="flex" justifyContent="flex-end" marginTop="1em">
         <Button
-          onClick={() => createGenus(genusOption)}
+          onClick={() => handleClick(genusOption)}
           kind={KIND.primary}
           size={SIZE.compact}
           shape={SHAPE.pill}
-          isLoading={isCreating}
+          isLoading={busy}
         >
           {genusOption[0]?.isCreatable ? `Create` : `Next`}
         </Button>
@@ -76,4 +106,4 @@ const RegisterPlant: React.FC = () => {
   );
 };
 
-export default RegisterPlant;
+export default GenusStep;
