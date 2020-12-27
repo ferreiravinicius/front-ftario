@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useStyletron } from 'baseui';
 import { Block } from 'baseui/block';
-import { BiHeart, BiSun, BiWater, BiWind } from "react-icons/bi";
+import { BiHeart, BiSun, BiWater, BiWind, BiTestTube } from "react-icons/bi";
 import { IconType } from 'react-icons/lib';
 
 export interface PlantDetailProps {
@@ -20,7 +20,9 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
   const [css, theme] = useStyletron();
 
   const stBadgeList = css({
-    display: `flex`
+    display: `grid`,
+    gridTemplateColumns: `1fr 1fr`,
+    gridGap: `.2rem`
   })
 
   const stDetailWrapper = css({
@@ -38,13 +40,16 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
   });
 
   const stAboutText = css({
-    fontFamily: `Roboto`,
+    fontWeight: 500,
+    fontSize: "1.6rem",
+    fontFamily: `Mulish`,
     textAlign: `justify`,
     marginBottom: "2rem",
   });
 
   const stAboutHeader = css({
-    fontFamily: `Montserrat`,
+    fontFamily: `Mulish`,
+    fontWeight: 900,
     display: "flex",
     justifyContent: "space-between",
     marginBottom: "2rem",
@@ -53,6 +58,11 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
   const stAboutTitle = css({
     fontWeight: 900,
     fontSize: "2rem",
+  });
+
+  const stAboutVariety = css({
+    fontWeight: 500,
+    fontSize: "1.6rem",
   });
 
   const stAboutHeart = css({
@@ -69,7 +79,10 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
       </Block>
       <Block className={stAboutHeader}>
         <Block className={stAboutTitle}>
-          Elodea Canadensis
+          Anubia Barteri
+          <Block className={stAboutVariety}>
+            var. Nana
+          </Block>
         </Block>
         <Block className={stAboutHeart}>
           <BiHeart />
@@ -81,10 +94,10 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
       </Block>
 
       <Block className={stBadgeList}>
-        <Badge icon={<BiSun />} color="#FDEFAA" text="Intense" subText="Light" />
+        <Badge icon={<BiSun />} color="#FDEFAA" text="Low" subText="Illumination" />
         <Badge icon={<BiWater />} color="#D6ECEC" text="Moderated" subText="Hardness" />
-        <Badge icon={<BiWind />} color="#F8D1BF" text="15-23°C" subText="Temperature" />
-
+        <Badge icon={<BiWind />} color="#F8D1BF" text="15 to 23°C" subText="Temperature" />
+        <Badge icon={<BiTestTube />} color="#c2c2f5" text="6 to 9" subText="pH" />
       </Block>
     </Block>
   )
@@ -103,13 +116,15 @@ const Badge: React.FC<BadgeProps> = ({ icon, color, text, subText }) => {
 
   const stBadgeWrapper = css({
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row", //column
     alignItems: "center",
     border: `2px solid ${COLORS.gray}`,
-    padding: ".8rem",
+    // backgroundColor: color,
+    // backgroundColor: COLORS.gray,
+    padding: ".8rem .8rem",
     borderRadius: "1rem",
-    fontFamily: `Roboto`,
-    marginRight: ".5rem",
+    fontFamily: `Mulish`,
+    // marginRight: ".5rem",
   })
 
   const stBadgeIcon = css({
@@ -127,17 +142,21 @@ const Badge: React.FC<BadgeProps> = ({ icon, color, text, subText }) => {
     display: "flex",
     flexDirection: "column",
     fontSize: "1.4rem",
-    alignItems: "center",
-    marginTop: ".5rem",
+    lineHeight: `1.6rem`,
+    alignItems: "flex-start", //center
+    marginLeft: "1rem",
   })
 
   const stBadgeInfoBolder = css({
-    color: color,
-    fontWeight: 800,
+    // color: color,
+    color: `rgba(0, 0, 0, .8)`,
+    fontWeight: 600,
   })
 
   const stBadgeInfoLighter = css({
-    color: `rgba(0, 0, 0, .5)`
+    color: `rgba(0, 0, 0, .6)`,
+    textTransform: `uppercase`,
+    fontSize: `1.0rem`
   })
 
   return (
