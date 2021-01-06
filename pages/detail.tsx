@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useStyletron } from 'baseui';
 import { Block } from 'baseui/block';
 import { BiHeart, BiSun, BiWater, BiWind, BiTestTube } from "react-icons/bi";
+import { IoWaterOutline, IoThermometerOutline, IoBulbOutline, IoFlaskOutline } from "react-icons/io5";
 import { IconType } from 'react-icons/lib';
 
 export interface PlantDetailProps {
@@ -116,10 +117,10 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
       </Block>
 
       <Block className={stBadgeList}>
-        <Badge icon={<BiSun />} color="#FDEFAA" text="Low" subText="Illumination" />
-        <Badge icon={<BiWater />} color="#D6ECEC" text="Moderated" subText="Hardness" />
-        <Badge icon={<BiWind />} color="#F8D1BF" text="15 to 23°C" subText="Temperature" />
-        <Badge icon={<BiTestTube />} color="#c2c2f5" text="6 to 9" subText="pH" />
+        <Badge icon={<IoBulbOutline />} color="#FDEFAA" text="Low" subText="Illumination" />
+        <Badge icon={<IoWaterOutline />} color="#D6ECEC" text="Moderated" subText="Hardness" />
+        <Badge icon={<IoThermometerOutline />} color="#F8D1BF" text="15 to 23°C" subText="Temperature" />
+        <Badge icon={<IoFlaskOutline />} color="#c2c2f5" text="6 to 9" subText="pH" />
       </Block>
     </Block>
   )
