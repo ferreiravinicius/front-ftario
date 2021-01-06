@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useStyletron } from 'baseui';
 import { Block } from 'baseui/block';
 import { BiHeart, BiSun, BiWater, BiWind, BiTestTube } from "react-icons/bi";
-import { IoWaterOutline, IoThermometerOutline, IoBulbOutline, IoFlaskOutline } from "react-icons/io5";
+import { IoWaterOutline, IoThermometerOutline, IoBulbOutline, IoFlaskOutline, IoRoseOutline, IoLeafOutline } from "react-icons/io5";
 import { IconType } from 'react-icons/lib';
 
 export interface PlantDetailProps {
@@ -25,6 +25,17 @@ export const FONTS = {
 }
 
 const ACTUAL_FONT = FONTS.rubik;
+
+const Separator: React.FC<PlantDetailProps> = () => {
+
+  const [css] = useStyletron();
+
+  const stSeparator = css({
+    margin: "1rem 0rem",
+  });
+
+  return <Block className={stSeparator} />
+}
 
 const PlantDetail: React.FC<PlantDetailProps> = () => {
 
@@ -54,8 +65,6 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
     fontWeight: 400,
     fontSize: "1.4rem",
     fontFamily: ACTUAL_FONT,
-    // textAlign: `justify`,
-    marginBottom: "2rem",
   });
 
   const stAboutHeader = css({
@@ -76,7 +85,7 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
     fontWeight: 900,
     fontSize: "2rem",
     fontFamily: ACTUAL_FONT,
-    marginBottom: "2rem",
+    margin: "2rem 0rem",
   });
 
   const stAboutVariety = css({
@@ -118,10 +127,34 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
 
       <Block className={stBadgeList}>
         <Badge icon={<IoBulbOutline />} color="#FDEFAA" text="Low" subText="Illumination" />
+        <Badge icon={<IoFlaskOutline />} color="#c2c2f5" text="6 to 9" subText="pH" />
         <Badge icon={<IoWaterOutline />} color="#D6ECEC" text="Moderated" subText="Hardness" />
         <Badge icon={<IoThermometerOutline />} color="#F8D1BF" text="15 to 23°C" subText="Temperature" />
-        <Badge icon={<IoFlaskOutline />} color="#c2c2f5" text="6 to 9" subText="pH" />
+        <Badge icon={<IoLeafOutline />} color="#dbfdaa" text="Not Demanding" subText="CO²" />
       </Block>
+
+
+      <Block className={stAltTitle}>
+        Characteristics
+      </Block>
+
+
+      <Block className={stBadgeList}>
+        Habit: Aquatic Emergent <br />
+        Growth: Slow <br />
+        Size: All sizes <br />
+        Best Position: Back Aquarium <br />
+      </Block>
+
+      <Block className={stAltTitle}>
+        How to Plant
+      </Block>
+
+      <Block className={stAltTitle}>
+        Propagation
+      </Block>
+
+
     </Block>
   )
 };
