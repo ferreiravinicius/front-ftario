@@ -16,6 +16,15 @@ export const COLORS = {
   otherGray: "rgb(229, 229, 229)"
 };
 
+export const FONTS = {
+  rubik: `Rubik`, //@300;400;600
+  mulish: `Mulish`, //@400;700;800
+  montserrat: `Montserrat`, //@300;400;500;700
+  roboto: `Roboto`, //@300;400;700
+}
+
+const ACTUAL_FONT = FONTS.rubik;
+
 const PlantDetail: React.FC<PlantDetailProps> = () => {
 
   const [css, theme] = useStyletron();
@@ -43,13 +52,13 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
   const stAboutText = css({
     fontWeight: 400,
     fontSize: "1.4rem",
-    fontFamily: `Mulish`,
+    fontFamily: ACTUAL_FONT,
     // textAlign: `justify`,
     marginBottom: "2rem",
   });
 
   const stAboutHeader = css({
-    fontFamily: `Mulish`,
+    fontFamily: ACTUAL_FONT,
     fontWeight: 900,
     display: "flex",
     justifyContent: "space-between",
@@ -59,13 +68,13 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
   const stAboutTitle = css({
     fontWeight: 900,
     fontSize: "2.5rem",
-    fontFamily: `Mulish`,
+    fontFamily: ACTUAL_FONT,
   });
 
   const stAltTitle = css({
     fontWeight: 900,
     fontSize: "2rem",
-    fontFamily: `Mulish`,
+    fontFamily: ACTUAL_FONT,
     marginBottom: "2rem",
   });
 
@@ -135,7 +144,7 @@ const Badge: React.FC<BadgeProps> = ({ icon, color, text, subText }) => {
     backgroundColor: COLORS.gray,
     padding: ".8rem .8rem",
     borderRadius: ".6rem",
-    fontFamily: `Mulish`,
+    fontFamily: ACTUAL_FONT,
   })
 
   const stBadgeIcon = css({
@@ -154,7 +163,7 @@ const Badge: React.FC<BadgeProps> = ({ icon, color, text, subText }) => {
     display: "flex",
     flexDirection: "column",
     fontSize: "1.4rem",
-    lineHeight: `1.6rem`,
+    lineHeight: `1.8rem`,
     alignItems: "flex-start", //center
     marginLeft: "2rem",
   })
@@ -163,12 +172,13 @@ const Badge: React.FC<BadgeProps> = ({ icon, color, text, subText }) => {
     // color: color,
     color: `rgba(0, 0, 0, .8)`,
     fontWeight: 600,
+    fontSize: "1.6rem",
   })
 
   const stBadgeInfoLighter = css({
     color: `rgba(0, 0, 0, .6)`,
-    textTransform: `uppercase`,
-    fontSize: `1.0rem`
+    // textTransform: `uppercase`,
+    fontSize: `1.4rem`
   })
 
   return (
