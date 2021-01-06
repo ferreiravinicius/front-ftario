@@ -13,6 +13,7 @@ export const COLORS = {
   green: "#00B761",
   white: "#FFFFFF",
   lightYellow: "#FFEAC9",
+  otherGray: "rgb(229, 229, 229)"
 };
 
 const PlantDetail: React.FC<PlantDetailProps> = () => {
@@ -21,8 +22,8 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
 
   const stBadgeList = css({
     display: `grid`,
-    gridTemplateColumns: `1fr 1fr`,
-    gridGap: `.2rem`
+    gridTemplateColumns: `1fr`,
+    gridGap: `.5rem`
   })
 
   const stDetailWrapper = css({
@@ -40,10 +41,10 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
   });
 
   const stAboutText = css({
-    fontWeight: 500,
-    fontSize: "1.6rem",
+    fontWeight: 400,
+    fontSize: "1.4rem",
     fontFamily: `Mulish`,
-    textAlign: `justify`,
+    // textAlign: `justify`,
     marginBottom: "2rem",
   });
 
@@ -57,7 +58,15 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
 
   const stAboutTitle = css({
     fontWeight: 900,
+    fontSize: "2.5rem",
+    fontFamily: `Mulish`,
+  });
+
+  const stAltTitle = css({
+    fontWeight: 900,
     fontSize: "2rem",
+    fontFamily: `Mulish`,
+    marginBottom: "2rem",
   });
 
   const stAboutVariety = css({
@@ -93,6 +102,10 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
         bastante significativa, mesmo sob condições adversas.
       </Block>
 
+      <Block className={stAltTitle}>
+        Requirements
+      </Block>
+
       <Block className={stBadgeList}>
         <Badge icon={<BiSun />} color="#FDEFAA" text="Low" subText="Illumination" />
         <Badge icon={<BiWater />} color="#D6ECEC" text="Moderated" subText="Hardness" />
@@ -118,22 +131,21 @@ const Badge: React.FC<BadgeProps> = ({ icon, color, text, subText }) => {
     display: "flex",
     flexDirection: "row", //column
     alignItems: "center",
-    border: `2px solid ${COLORS.gray}`,
-    // backgroundColor: color,
-    // backgroundColor: COLORS.gray,
+    // border: `1px solid ${COLORS.otherGray}`,
+    backgroundColor: COLORS.gray,
     padding: ".8rem .8rem",
-    borderRadius: "1rem",
+    borderRadius: ".6rem",
     fontFamily: `Mulish`,
-    // marginRight: ".5rem",
   })
 
   const stBadgeIcon = css({
-    color: `rgba(0, 0, 0, .4)`,
+    color: `rgba(0, 0, 0, .6)`,
     backgroundColor: color,
-    padding: ".8rem",
+    padding: "1rem",
     borderRadius: "50%",
     display: "flex",
-    border: `1px solid ${color}`
+    fontSize: "2rem",
+    // border: `1px solid ${color}`,
   })
 
 
@@ -144,7 +156,7 @@ const Badge: React.FC<BadgeProps> = ({ icon, color, text, subText }) => {
     fontSize: "1.4rem",
     lineHeight: `1.6rem`,
     alignItems: "flex-start", //center
-    marginLeft: "1rem",
+    marginLeft: "2rem",
   })
 
   const stBadgeInfoBolder = css({
