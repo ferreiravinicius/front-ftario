@@ -4,6 +4,8 @@ import { Block } from 'baseui/block';
 import { BiHeart, BiSun, BiWater, BiWind, BiTestTube } from "react-icons/bi";
 import { IoWaterOutline, IoThermometerOutline, IoBulbOutline, IoFlaskOutline, IoRoseOutline, IoLeafOutline } from "react-icons/io5";
 import { IconType } from 'react-icons/lib';
+import { Table } from "baseui/table-semantic";
+import {ListItem, ListItemLabel, ARTWORK_SIZES} from 'baseui/list';
 
 export interface PlantDetailProps {
 
@@ -97,67 +99,164 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
     fontSize: "2.5rem",
   });
 
+
+  // List
+
+  const stList = css({
+    margin: "0",
+    padding: "0",
+    fontFamily: ACTUAL_FONT,
+  });
+
+  const stListLine = css({
+    display: "flex",
+    justifyContent: `flex-start`,
+    fontSize: "1.4rem",
+    padding: `1.5rem .8rem`,
+    // borderBottom: `2px solid ${COLORS.gray}`,
+    borderRadius: ".6rem",
+    ":last-child": {
+      borderBottom: `none`,
+    },
+    ":nth-child(odd)": {
+      backgroundColor: COLORS.gray,
+    }
+  });
+
+  const stListContent = css({
+    fontWeight: 600,
+    flex: `1 0`
+  });
+
+  const stListTitle = css({
+    fontWeight: 600,
+    flex: `0 0`,
+    minWidth: `30%`,
+  });
+
+  const stListDescription = css({
+    color: `rgba(0, 0, 0, 1)`,
+    // fontSize: `1.2rem`,
+    fontWeight: 300,
+  });
+
   return (
     <Block className={stDetailWrapper}>
       <Block className={stImageWrapper}>
-        <img
-          className={stImage}
-          src="https://i.imgur.com/iyeEP5d.png"
-        />
+        <img className={stImage} src="https://i.imgur.com/iyeEP5d.png" />
       </Block>
       <Block className={stAboutHeader}>
         <Block className={stAboutTitle}>
           Anubia Barteri
-          <Block className={stAboutVariety}>
-            var. Nana
-          </Block>
+          <Block className={stAboutVariety}>var. Nana</Block>
         </Block>
         <Block className={stAboutHeart}>
           <BiHeart />
         </Block>
       </Block>
       <Block className={stAboutText}>
-        Planta bastante rustica, ideal para aquaristas iniciantes. Sua taxa de crescimento é
-        bastante significativa, mesmo sob condições adversas.
+        Planta bastante rustica, ideal para aquaristas iniciantes. Sua taxa de
+        crescimento é bastante significativa, mesmo sob condições adversas.
       </Block>
 
-      <Block className={stAltTitle}>
-        Requirements
-      </Block>
+      <Block className={stAltTitle}>Requirements</Block>
 
       <Block className={stBadgeList}>
-        <Badge icon={<IoBulbOutline />} color="#FDEFAA" text="Low" subText="Illumination" />
-        <Badge icon={<IoFlaskOutline />} color="#c2c2f5" text="6 to 9" subText="pH" />
-        <Badge icon={<IoWaterOutline />} color="#D6ECEC" text="Moderated" subText="Hardness" />
-        <Badge icon={<IoThermometerOutline />} color="#F8D1BF" text="15 to 23°C" subText="Temperature" />
-        <Badge icon={<IoLeafOutline />} color="#dbfdaa" text="Not Demanding" subText="CO²" />
+        <Badge
+          icon={<IoBulbOutline />}
+          color="#FDEFAA"
+          text="Low"
+          subText="Illumination"
+        />
+        <Badge
+          icon={<IoFlaskOutline />}
+          color="#c2c2f5"
+          text="6 to 9"
+          subText="pH"
+        />
+        <Badge
+          icon={<IoWaterOutline />}
+          color="#D6ECEC"
+          text="Moderated"
+          subText="Hardness"
+        />
+        <Badge
+          icon={<IoThermometerOutline />}
+          color="#F8D1BF"
+          text="15 to 23°C"
+          subText="Temperature"
+        />
+        <Badge
+          icon={<IoLeafOutline />}
+          color="#dbfdaa"
+          text="Not Demanding"
+          subText="CO² Injection"
+        />
       </Block>
 
-
-      <Block className={stAltTitle}>
-        Characteristics
-      </Block>
-
+      <Block className={stAltTitle}>Characteristics</Block>
 
       <Block className={stBadgeList}>
-        Habit: Aquatic Emergent <br />
-        Growth: Slow <br />
-        Size: All sizes <br />
-        Best Position: Back Aquarium <br />
+        <ul className={stList}>
+
+          <li className={stListLine}>
+            <Block className={stListTitle}>Growth</Block>
+            <Block className={stListContent}>
+              Slow
+            </Block>
+          </li>
+
+          <li className={stListLine}>
+            <Block className={stListTitle}>Size</Block>
+            <Block className={stListContent}>
+              10cm to 25cm
+            </Block>
+          </li>
+
+          <li className={stListLine}>
+            <Block className={stListTitle}>Habit</Block>
+            <Block className={stListContent}>
+              Emergent
+              <Block className={stListDescription}>
+                Rooted in the bottom, partially submerged and partially out of water.
+              </Block>
+            </Block>
+          </li>
+
+          <li className={stListLine}>
+            <Block className={stListTitle}>Position</Block>
+            <Block className={stListContent}>
+              Back Aquarium
+              <Block className={stListDescription}>
+                It's recommended to be planted in the back of the aquarium.
+              </Block>
+            </Block>
+          </li>
+        </ul>
       </Block>
 
-      <Block className={stAltTitle}>
-        How to Plant
-      </Block>
+      <Block className={stAltTitle}>Planting</Block>
 
-      <Block className={stAltTitle}>
-        Propagation
-      </Block>
-
-
+      <Block className={stAltTitle}>Propagation</Block>
     </Block>
-  )
+  );
 };
+
+const List: React.FC<{}> = ({ children }) => {
+
+  const [css] = useStyletron();
+
+  const stList = css({
+    padding: "0",
+    margin: "0",
+  });
+
+  return (
+    <ul className={stList}>
+      {children}
+    </ul>
+    );
+}
 
 export interface BadgeProps {
   text: string
