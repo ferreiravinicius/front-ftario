@@ -13,8 +13,7 @@ const localePortuguese = {
 const locale = {}
 
 const primitives = {
-  primaryFontFamily: 'Montserrat, Roboto',
-  // primaryFontFamily: 'Roboto, Montserrat',
+  primaryFontFamily: 'Rubik, Roboto, sans-serif',
 }
 
 // const theme = createDarkTheme(primitives);
