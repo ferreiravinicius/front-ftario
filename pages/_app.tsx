@@ -16,8 +16,8 @@ const primitives = {
   primaryFontFamily: 'Rubik, Roboto, sans-serif',
 }
 
-// const theme = createDarkTheme(primitives);
-const theme = createLightTheme(primitives);
+// const theme = createDarkTheme(primitives, { name: `dark` });
+const theme = createLightTheme(primitives, { name: `light` });
 
 function MyApp({ Component, pageProps } : { Component: any, pageProps: any }) {
   return (

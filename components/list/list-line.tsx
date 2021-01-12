@@ -13,36 +13,40 @@ const ListLine: React.FC<ListLineProps> = ({
   info,
   infoDescription,
 }) => {
+
   const [css, theme] = useStyletron();
 
   const stListLine = css({
     display: "flex",
     justifyContent: `flex-start`,
     fontSize: theme.typography.ParagraphSmall.fontSize,
-    padding: `1.5rem .8rem`, //TODO use theme
-    borderRadius: ".6rem", //TODO use theme
+    paddingTop: theme.sizing.scale600,
+    paddingBottom: theme.sizing.scale600,
+    paddingLeft: theme.sizing.scale300,
+    paddingRight: theme.sizing.scale300,
+    borderRadius: theme.borders.radius200,
+    color: theme.colors.contentPrimary,
+    backgroundColor: theme.colors.background,
     ":last-child": {
       borderBottom: `none`,
     },
     ":nth-child(odd)": {
-      backgroundColor: "#F8F8F8", //TODO use theme
+      backgroundColor: theme.colors.backgroundSecondary,
     }
   });
 
   const stListLineLabel = css({
-    fontWeight: theme.typography.font650.fontWeight,
     flex: `0 0`,
     minWidth: `30%`,
   });
 
   const stListLineInfo = css({
-    fontWeight: theme.typography.font650.fontWeight,
-    flex: `1 0`
+    flex: `1 0`,
   });
 
   const stListLineInfoDesc = css({
-    color: `rgba(0, 0, 0, 1)`, //TODO: use theme
-    fontWeight: theme.typography.font300.fontWeight,
+    color: theme.colors.primary500,
+    marginTop: theme.sizing.scale100,
   });
 
   return (
