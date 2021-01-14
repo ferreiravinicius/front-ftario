@@ -25,6 +25,10 @@ const Badge: React.FC<BadgeProps> = ({ icon, color, text, subText }) => {
     borderRadius: theme.borders.radius200,
     backgroundColor: theme.colors.backgroundSecondary,
     fontFamily: theme.typography.ParagraphSmall.fontFamily,
+    [theme.mediaQuery.medium]: {
+      backgroundColor: `transparent`,
+      padding: theme.sizing.scale100,
+    },
   });
 
   const stBadgeIcon = css({
@@ -34,6 +38,10 @@ const Badge: React.FC<BadgeProps> = ({ icon, color, text, subText }) => {
     padding: theme.sizing.scale600,
     fontSize: theme.sizing.scale650,
     color: theme.colors.contentTertiary, 
+    [theme.mediaQuery.medium]: {
+      fontSize: theme.sizing.scale600,
+      padding: theme.sizing.scale500,
+    },
   });
 
   const stBadgeInfo = css({
@@ -43,13 +51,15 @@ const Badge: React.FC<BadgeProps> = ({ icon, color, text, subText }) => {
     alignItems: "flex-start",
     marginLeft: theme.sizing.scale700,
     fontSize: theme.typography.ParagraphSmall.fontSize,
-    // lineHeight: `1.8rem`,
   });
 
   const stBadgeInfoBolder = css({
     fontWeight: `bold`,
     color: theme.colors.contentPrimary,
     fontSize: theme.typography.ParagraphMedium.fontSize,
+    [theme.mediaQuery.medium]: {
+      fontWeight: `normal`,
+    },
   });
 
   const stBadgeInfoLighter = css({
