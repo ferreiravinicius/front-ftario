@@ -1,6 +1,6 @@
 import { useStyletron } from "baseui";
 import { Block } from "baseui/block";
-import { ParagraphMedium } from "baseui/typography";
+import { DisplaySmall, DisplayXSmall, ParagraphMedium } from "baseui/typography";
 import * as React from "react";
 import {
   IoBulbOutline,
@@ -27,59 +27,75 @@ export const COLORS = {
 const PlantDetail: React.FC<PlantDetailProps> = () => {
   const [css, theme] = useStyletron();
 
-  const stBadgeList = css({
-    display: `grid`,
-    gridTemplateColumns: `1fr`,
-    [theme.mediaQuery.medium]: {
-      gridTemplateColumns: `1fr`,
-    },
-  });
-
   const stDetailWrapper = css({
     width: `100%`,
-    maxWidth: `100%`,
     display: "grid",
     marginTop: `1px`,
     backgroundColor: theme.colors.background,
     fontFamily: theme.typography.ParagraphMedium.fontFamily,
-    gridTemplateAreas: `"abt" "req" "cha"`,
+    gridTemplateAreas: `
+      "ilu" 
+      "abt" 
+      "cha"`,
     color: theme.colors.contentPrimary,
     [theme.mediaQuery.medium]: {
-      paddingTop: theme.sizing.scale1000,
       gridTemplateAreas: `
         "abt ilu"
         "cha cha"
       `,
-      gridTemplateColumns: `2fr 3fr`,
-      // gridColumnGap: theme.sizing.scale800,
+      gridTemplateColumns: `50% auto`,
     },
     [theme.mediaQuery.large]: {
       gridTemplateAreas: `
         "abt ilu cha"
       `,
-      gridTemplateColumns: `2fr 2fr 4fr`,
+      gridTemplateColumns: `20% 40% 40%`,
     }
   });
 
+  const distanceTop = {
+    paddingTop: theme.sizing.scale1200,
+  }
+
   const stIllustration = css({
     gridArea: `ilu`,
+    backgroundColor: theme.colors.backgroundTertiary,
+    padding: theme.sizing.scale1000,
+    
+    borderRadius: theme.borders.radius200,
+    marginTop: theme.sizing.scale600,
+
     [theme.mediaQuery.medium]: {
-      textAlign: `right`,
+      borderRadius: 0,
+      marginTop: 0,
+
+      backgroundColor: theme.colors.backgroundTertiary,
+      justifySelf: `center`,
+      padding: theme.sizing.scale800,
+      maxWidth: `50vw`,
       zIndex: 2,
-      // maxHeight: `300px`,
-      // overflow: `hidden`
     },
+    [theme.mediaQuery.large]: {
+      backgroundColor: theme.colors.backgroundTertiary,
+      maxWidth: `30vw`,
+      padding: theme.sizing.scale800,
+    },
+  });
+
+  const stAboutGraphicImage = css({
+    width: `100%`,
+    zIndex: 9999,
   });
 
   const stCharacteristics = css({
     gridArea: `cha`,
+    paddingTop: theme.sizing.scale800,
     [theme.mediaQuery.medium]: {
-      zIndex: 1,
+      paddingTop: theme.sizing.scale600
     },
     [theme.mediaQuery.large]: {
-      backgroundColor: theme.colors.backgroundSecondary,
-      padding: `0 ${theme.sizing.scale600}`,
-      borderRadius: theme.borders.radius400,
+      paddingLeft: theme.sizing.scale800,
+      ...distanceTop,
     },
   });
 
@@ -88,25 +104,33 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
     [theme.mediaQuery.medium]: {
       display: `flex`,
       flexDirection: "column",
+      paddingRight: theme.sizing.scale800,
+      ...distanceTop,
+    },
+    [theme.mediaQuery.large]: {
+      ...distanceTop,
+    },
+  });
+
+  const stBadgeList = css({
+    display: `grid`,
+    gridTemplateColumns: `1fr`,
+    gridRowGap: theme.sizing.scale100,
+    [theme.mediaQuery.medium]: {
+      gridRowGap: 0,
+      gridTemplateColumns: `1fr`,
     },
   });
 
   const hrTitle = {
     fontWeight: 900,
     fontSize: "2rem",
-    margin: "2rem 0rem",
+    marginBottom: theme.sizing.scale800,
     color: theme.colors.contentPrimary,
   };
 
   const stAltTitle = css({
     ...hrTitle,
-  });
-
-  const stMobileTitle = css({
-    ...hrTitle,
-    [theme.mediaQuery.medium]: {
-      display: `none`,
-    },
   });
 
   const stAboutWrapper = css({
@@ -115,31 +139,51 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
     },
   });
 
-  const stAboutGraphicImage = css({
-    height: `100%`,
-    zIndex: 9999,
-  });
-
   const stAboutHeader = css({
     display: "flex",
-    justifyContent: "space-between",
+  });
+ 
+  const stAboutName = css({
+    marginTop: theme.sizing.scale800,
+    [theme.mediaQuery.medium]: {
+      marginTop: 0,
+    }
   });
 
-  const stAboutHeaderTitle = css({
+  const stAboutNameGenus = css({
     fontWeight: `bold`,
-    fontSize: theme.typography.HeadingXSmall.fontSize,
+    fontSize: theme.typography.HeadingSmall.fontSize,
+    lineHeight: theme.typography.HeadingXSmall.lineHeight,
+    display: `inline-block`,
+    marginRight: theme.sizing.scale200,
+
     [theme.mediaQuery.medium]: {
-      fontSize: theme.typography.DisplayMedium.fontSize,
-      lineHeight: theme.typography.DisplaySmall.lineHeight,
+      marginRight: 0,
+      display: `block`,
+      fontWeight: `bold`,
+      fontSize: theme.typography.HeadingSmall.fontSize,
+      lineHeight: theme.typography.HeadingXSmall.lineHeight,
     },
   });
 
-  const stAboutHeaderTitleDesc = css({
-    fontWeight: `normal`,
-    fontSize: theme.typography.ParagraphMedium.fontSize,
-    lineHeight: theme.typography.ParagraphMedium.lineHeight,
+  const stAboutNameSpecies = css({
+    display: `inline-block`,
+    fontWeight: `bold`,
+    fontSize: theme.typography.HeadingSmall.fontSize,
+    lineHeight: theme.typography.HeadingXSmall.lineHeight,
+
     [theme.mediaQuery.medium]: {
-      fontSize: theme.typography.HeadingSmall.fontSize,
+      display: `block`,
+      fontWeight: `bold`,
+      fontSize: theme.typography.DisplaySmall.fontSize,
+      lineHeight: theme.typography.DisplayXSmall.lineHeight,
+    },
+  });
+
+  const stAboutNameOptional = css({
+    [theme.mediaQuery.medium]: {
+      fontWeight: `normal`,
+      fontSize: theme.typography.HeadingXSmall.fontSize,
     },
   });
 
@@ -153,9 +197,10 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
         <Block className={stAbout}>
           <Block className={stAboutWrapper}>
             <Block className={stAboutHeader}>
-              <Block className={stAboutHeaderTitle}>
-                Anubias Bartheri
-                <Block className={stAboutHeaderTitleDesc}>var. Nana</Block>
+              <Block className={stAboutName}>
+                <Block className={stAboutNameGenus}>Anubias</Block>
+                <Block className={stAboutNameSpecies}>Barteri</Block>
+                <Block className={stAboutNameOptional}>var. Nana</Block>
               </Block>
             </Block>
             <ParagraphMedium>
@@ -201,7 +246,6 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
         <Block className={stIllustration}>
           <img
             className={stAboutGraphicImage}
-            // src="https://tropica.com/imagegen.ashx?image=/Plants/072B%20XL/1.JPG&class=product"
             // src="https://i.imgur.com/iyeEP5d.png"
             src="https://i.imgur.com/9j1IMzN.png"
             // src="https://i.imgur.com/xeEpmtt.png"

@@ -1,31 +1,19 @@
-import { useStyletron } from 'baseui';
-import { Block } from 'baseui/block';
-import * as React from 'react';
-import Footer from './footer';
-import {AppNavBar, NavItemT, setItemActive} from 'baseui/app-nav-bar';
-import {ChevronDown, Delete, Overflow, Upload} from 'baseui/icon';
-import {Grid, Cell} from 'baseui/layout-grid';
+import { useStyletron } from "baseui";
+import { AppNavBar, NavItemT } from "baseui/app-nav-bar";
+import { Block } from "baseui/block";
+import { Cell, Grid } from "baseui/layout-grid";
+import * as React from "react";
+import Footer from "./footer";
 
 const Navbar: React.FC<{}> = () => {
+  const [items, setItems] = React.useState<NavItemT[]>([{ label: `Teste` }]);
 
-  const [items, setItems] = React.useState<NavItemT[]>([
-    { label: `Teste` }
-  ]);
+  return <AppNavBar title="florestario" mainItems={items} />;
+};
 
-  return (
-    <AppNavBar 
-      title="florestario"
-      mainItems={items}
-    />
-  );
-}
+export interface PageProps {}
 
-export interface PageProps {
-  
-}
- 
 const Page: React.FC<PageProps> = ({ children }) => {
-
   const [css, theme] = useStyletron();
 
   const stPage = css({
@@ -34,27 +22,21 @@ const Page: React.FC<PageProps> = ({ children }) => {
     padding: 0,
     display: `flex`,
     flexDirection: `column`,
-  });
-
-  const stInner = css({
-    width: `100vw`,
-    paddingLeft: theme.sizing.scale1000,
-    paddingRight: theme.sizing.scale1000,
-    [theme.mediaQuery.large]: {
-      maxWidth: `60vw`,
-      alignSelf: `center`,
-    }
+    height: `100vh`,
   });
 
   return (
     <Block className={stPage}>
       <Navbar />
+      {/* <Grid gridMargins={[0, 36, 64]}> */}
       <Grid>
-        {children}
+        <Cell span={12}>
+          {children}
+        </Cell>
       </Grid>
-      <Footer />
+      {/* <Footer /> */}
     </Block>
   );
-}
- 
+};
+
 export default Page;

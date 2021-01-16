@@ -37,7 +37,7 @@ const ListLine: React.FC<ListLineProps> = ({
 
   const stListLineLabel = css({
     flex: `0 0`,
-    minWidth: `30%`,
+    minWidth: `100px`,
   });
 
   const stListLineInfo = css({

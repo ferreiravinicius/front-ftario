@@ -54,7 +54,7 @@ const Badge: React.FC<BadgeProps> = ({ icon, color, text, subText }) => {
   });
 
   const stBadgeInfoBolder = css({
-    fontWeight: `bold`,
+    fontWeight: `normal`,
     color: theme.colors.contentPrimary,
     fontSize: theme.typography.ParagraphMedium.fontSize,
     [theme.mediaQuery.medium]: {
