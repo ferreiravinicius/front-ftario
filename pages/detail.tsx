@@ -1,6 +1,11 @@
 import { useStyletron } from "baseui";
 import { Block } from "baseui/block";
-import { DisplaySmall, DisplayXSmall, ParagraphMedium } from "baseui/typography";
+import { Cell, Grid } from "baseui/layout-grid";
+import {
+  DisplaySmall,
+  DisplayXSmall,
+  ParagraphMedium,
+} from "baseui/typography";
 import * as React from "react";
 import {
   IoBulbOutline,
@@ -50,18 +55,18 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
         "abt ilu cha"
       `,
       gridTemplateColumns: `20% 40% 40%`,
-    }
+    },
   });
 
   const distanceTop = {
     paddingTop: theme.sizing.scale1200,
-  }
+  };
 
   const stIllustration = css({
     gridArea: `ilu`,
     backgroundColor: theme.colors.backgroundTertiary,
     padding: theme.sizing.scale1000,
-    
+
     borderRadius: theme.borders.radius200,
     marginTop: theme.sizing.scale600,
 
@@ -91,7 +96,7 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
     gridArea: `cha`,
     paddingTop: theme.sizing.scale800,
     [theme.mediaQuery.medium]: {
-      paddingTop: theme.sizing.scale600
+      paddingTop: theme.sizing.scale600,
     },
     [theme.mediaQuery.large]: {
       paddingLeft: theme.sizing.scale800,
@@ -142,12 +147,12 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
   const stAboutHeader = css({
     display: "flex",
   });
- 
+
   const stAboutName = css({
     marginTop: theme.sizing.scale800,
     [theme.mediaQuery.medium]: {
       marginTop: 0,
-    }
+    },
   });
 
   const stAboutNameGenus = css({
@@ -193,113 +198,106 @@ const PlantDetail: React.FC<PlantDetailProps> = () => {
 
   return (
     <Page>
-      <Block className={stDetailWrapper}>
-        <Block className={stAbout}>
-          <Block className={stAboutWrapper}>
-            <Block className={stAboutHeader}>
-              <Block className={stAboutName}>
-                <Block className={stAboutNameGenus}>Anubias</Block>
-                <Block className={stAboutNameSpecies}>Barteri</Block>
-                <Block className={stAboutNameOptional}>var. Nana</Block>
+      <DetailOuter>
+        <Block className={stDetailWrapper}>
+          <Block className={stAbout}>
+            <Block className={stAboutWrapper}>
+              <Block className={stAboutHeader}>
+                <Block className={stAboutName}>
+                  <Block className={stAboutNameGenus}>Anubias</Block>
+                  <Block className={stAboutNameSpecies}>Barteri</Block>
+                  <Block className={stAboutNameOptional}>var. Nana</Block>
+                </Block>
               </Block>
+              <ParagraphMedium>
+                Planta bastante rústica, ideal para aquaristas iniciantes. Sua
+                taxa de crescimento é bastante significativa, mesmo sob
+                condições adversas.
+              </ParagraphMedium>
             </Block>
-            <ParagraphMedium>
-              Planta bastante rústica, ideal para aquaristas iniciantes. Sua
-              taxa de crescimento é bastante significativa, mesmo sob condições
-              adversas.
-            </ParagraphMedium>
+            <Block className={stBadgeList}>
+              <Badge
+                icon={<IoBulbOutline />}
+                color="#FDEFAA"
+                text="Low"
+                subText="Illumination"
+              />
+              <Badge
+                icon={<IoFlaskOutline />}
+                color="#c2c2f5"
+                text="6 to 9"
+                subText="pH"
+              />
+              <Badge
+                icon={<IoWaterOutline />}
+                color="#D6ECEC"
+                text="Moderated"
+                subText="Hardness"
+              />
+              <Badge
+                icon={<IoThermometerOutline />}
+                color="#F8D1BF"
+                text="15 to 23°C"
+                subText="Temperature"
+              />
+              <Badge
+                icon={<IoLeafOutline />}
+                color="#dbfdaa"
+                text="Not Demanding"
+                subText="CO² Injection"
+              />
+            </Block>
           </Block>
-          <Block className={stBadgeList}>
-            <Badge
-              icon={<IoBulbOutline />}
-              color="#FDEFAA"
-              text="Low"
-              subText="Illumination"
-            />
-            <Badge
-              icon={<IoFlaskOutline />}
-              color="#c2c2f5"
-              text="6 to 9"
-              subText="pH"
-            />
-            <Badge
-              icon={<IoWaterOutline />}
-              color="#D6ECEC"
-              text="Moderated"
-              subText="Hardness"
-            />
-            <Badge
-              icon={<IoThermometerOutline />}
-              color="#F8D1BF"
-              text="15 to 23°C"
-              subText="Temperature"
-            />
-            <Badge
-              icon={<IoLeafOutline />}
-              color="#dbfdaa"
-              text="Not Demanding"
-              subText="CO² Injection"
+
+          <Block className={stIllustration}>
+            <img
+              className={stAboutGraphicImage}
+              // src="https://i.imgur.com/iyeEP5d.png"
+              src="https://i.imgur.com/9j1IMzN.png"
+              // src="https://i.imgur.com/xeEpmtt.png"
+              // src="https://i.imgur.com/6h90zd3.png"
             />
           </Block>
-        </Block>
 
-        <Block className={stIllustration}>
-          <img
-            className={stAboutGraphicImage}
-            // src="https://i.imgur.com/iyeEP5d.png"
-            src="https://i.imgur.com/9j1IMzN.png"
-            // src="https://i.imgur.com/xeEpmtt.png"
-            // src="https://i.imgur.com/6h90zd3.png"
-          />
-        </Block>
+          <Block className={stCharacteristics}>
+            <Block className={stAltTitle}>Characteristics</Block>
 
-        <Block className={stCharacteristics}>
-          <Block className={stAltTitle}>Characteristics</Block>
-
-          <Block className={stBadgeList}>
-            <List>
-              <ListLine label="Growth" info="Slow" />
-              <ListLine label="Size" info="10cm to 25cm" />
-              <ListLine
-                label="Habit"
-                info="Emergent"
-                infoDescription="Rooted in the bottom, partially submerged and partially out of water."
-              />
-              <ListLine
-                label="Propagation"
-                info="Cuttings"
-                infoDescription="Cut the stem and plant in substrate."
-              />
-              <ListLine
-                label="Position"
-                info="Back Aquarium"
-                infoDescription="It's recommended to be planted in the back of the aquarium."
-              />
-            </List>
+            <Block className={stBadgeList}>
+              <List>
+                <ListLine label="Growth" info="Slow" />
+                <ListLine label="Size" info="10cm to 25cm" />
+                <ListLine
+                  label="Habit"
+                  info="Emergent"
+                  infoDescription="Rooted in the bottom, partially submerged and partially out of water."
+                />
+                <ListLine
+                  label="Propagation"
+                  info="Cuttings"
+                  infoDescription="Cut the stem and plant in substrate."
+                />
+                <ListLine
+                  label="Position"
+                  info="Back Aquarium"
+                  infoDescription="It's recommended to be planted in the back of the aquarium."
+                />
+              </List>
+            </Block>
           </Block>
         </Block>
-      </Block>
+      </DetailOuter>
     </Page>
   );
 };
 
-const avatarOverrides = {
-  Avatar: {
-    style: ({ $theme }: any) => ({
-      borderTopLeftRadius: $theme.borders.radius400,
-      borderTopRightRadius: $theme.borders.radius400,
-      borderBottomRightRadius: $theme.borders.radius400,
-      borderBottomLeftRadius: $theme.borders.radius400,
-    }),
-  },
-  Root: {
-    style: ({ $theme }: any) => ({
-      borderTopLeftRadius: $theme.borders.radius400,
-      borderTopRightRadius: $theme.borders.radius400,
-      borderBottomRightRadius: $theme.borders.radius400,
-      borderBottomLeftRadius: $theme.borders.radius400,
-    }),
-  },
-};
+const DetailOuter: React.FC = ({ children }) => {
+  return (
+    <Grid>
+      <Cell span={12}>
+        {children}
+      </Cell>
+    </Grid>
+  )
+}
 
 export default PlantDetail;

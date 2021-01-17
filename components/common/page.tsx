@@ -18,23 +18,21 @@ const Page: React.FC<PageProps> = ({ children }) => {
 
   const stPage = css({
     backgroundColor: theme.colors.background,
+    fontFamily: theme.typography.ParagraphMedium.fontFamily,
     margin: 0,
     padding: 0,
     display: `flex`,
     flexDirection: `column`,
     height: `100vh`,
+    width: `100vw`,
   });
 
   return (
     <Block className={stPage}>
       <Navbar />
-      {/* <Grid gridMargins={[0, 36, 64]}> */}
-      <Grid>
-        <Cell span={12}>
-          {children}
-        </Cell>
-      </Grid>
-      {/* <Footer /> */}
+      <Block>
+        {children}
+      </Block>
     </Block>
   );
 };
