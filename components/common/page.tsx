@@ -1,12 +1,12 @@
 import { useStyletron } from "baseui";
 import { AppNavBar, NavItemT } from "baseui/app-nav-bar";
 import { Block } from "baseui/block";
-import { Cell, Grid } from "baseui/layout-grid";
 import * as React from "react";
-import Footer from "./footer";
 
 const Navbar: React.FC<{}> = () => {
-  const [items, setItems] = React.useState<NavItemT[]>([{ label: `Teste` }]);
+  const [items, setItems] = React.useState<NavItemT[]>([{ 
+    label: `About` 
+  }]);
 
   return <AppNavBar title="florestario" mainItems={items} />;
 };
@@ -25,14 +25,13 @@ const Page: React.FC<PageProps> = ({ children }) => {
     flexDirection: `column`,
     height: `100vh`,
     width: `100vw`,
+    overflowX: `hidden`,
   });
 
   return (
     <Block className={stPage}>
       <Navbar />
-      <Block>
-        {children}
-      </Block>
+      <Block>{children}</Block>
     </Block>
   );
 };

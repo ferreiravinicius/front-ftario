@@ -1,6 +1,6 @@
 import { useStyletron } from "baseui";
 import { Block } from "baseui/block";
-import { Cell, Grid } from "baseui/layout-grid";
+import { ALIGNMENT, Cell, Grid } from "baseui/layout-grid";
 import * as React from "react";
 import Page from "../components/common/page";
 import StickyBox from "react-sticky-box";
@@ -12,118 +12,317 @@ import {
   IoWaterOutline,
 } from "react-icons/io5";
 import MiniBadge from "../components/badge/mini-badge";
+import Card from "../components/card/card";
+import { Slider } from "baseui/slider";
+import {
+  HeadingSmall,
+  HeadingXSmall,
+  LabelMedium,
+  LabelSmall,
+  LabelXSmall,
+} from "baseui/typography";
+import { Select } from "baseui/select";
+import { Button, KIND, SHAPE, SIZE } from "baseui/button";
+import { StyledBody, StyledAction } from "baseui/card";
+import { Checkbox } from "baseui/checkbox";
+import { Input } from "baseui/input";
+import { IoFilter } from "react-icons/io5";
+import { BiFilterAlt } from "react-icons/bi";
 
 export interface ListingProps {}
 
 const Listing: React.FC<ListingProps> = () => {
   const [css, theme] = useStyletron();
 
+  const [isFilterOpen, setFilterOpen] = React.useState(false);
+
   const stListing = css({
     marginTop: `1px`,
     width: `100%`,
-    height: `100%`,
     display: `flex`,
-    alignItems: "flex-start", //tricky to stickybox works
+
+    [theme.mediaQuery.medium]: {
+      alignItems: "flex-start", //tricky to stickybox works
+    },
   });
 
+  const currentBorder = theme.borders.border200;
+  const border = `${currentBorder.borderWidth} ${currentBorder.borderStyle} ${currentBorder.borderColor}`;
+
   const stListingFilter = css({
-    backgroundColor: `red`,
-    width: `20%`,
+    width: `100%`,
+    display: isFilterOpen ? `block` : `none`,
+
+    [theme.mediaQuery.medium]: {
+      width: `30%`,
+      paddingTop: theme.sizing.scale600,
+      paddingRight: theme.sizing.scale600,
+      display: `block`,
+      position: `sticky`,
+      top: `0px`,
+    },
+    [theme.mediaQuery.large]: {
+      width: `20%`,
+    },
   });
 
   const stListingCards = css({
-    backgroundColor: theme.colors.backgroundTertiary,
-    width: `80%`,
-    display: `flex`,
-  });
-
-  const stCard = css({
-    flex: `0 0 20%`,
     backgroundColor: theme.colors.backgroundPrimary,
-    padding: theme.sizing.scale600,
-    margin: theme.sizing.scale600,
-    display: `flex`,
-    flexDirection: `column`,
-    overflow: `hidden`,
-    borderRadius: theme.borders.radius200,
-    color: theme.colors.contentPrimary,
-  });
-
-  const stCardTop = css({
-    maxHeight: `215px`,
-    // overflowY: `hidden`,
-    // overflowX: `visible`,
-    position: `relative`
-  });
-
-  const stCardTopImage = css({
     width: `100%`,
+    display: isFilterOpen ? `none` : `grid`,
+    gridTemplateColumns: `1fr 1fr`,
+    gridGap: theme.sizing.scale200,
+
+    [theme.mediaQuery.medium]: {
+      width: `70%`,
+      gridGap: theme.sizing.scale400,
+      gridTemplateColumns: `1fr 1fr 1fr`,
+      paddingRight: 0,
+      borderLeft: border,
+      paddingTop: theme.sizing.scale600,
+      paddingLeft: theme.sizing.scale600,
+      paddingBottom: theme.sizing.scale600,
+    },
+    [theme.mediaQuery.large]: {
+      width: `80%`,
+      gridTemplateColumns: `1fr 1fr 1fr 1fr`,
+    },
   });
 
-  const stCardAbout = css({
-    backgroundColor: theme.colors.backgroundPrimary,
-    paddingTop: theme.sizing.scale600,
-    zIndex: 99,
-  });
-
-  const stCardAboutName = css({
-    fontSize: theme.typography.ParagraphLarge.fontSize,
-  });
-
-  const stCardAboutNameVar = css({
+  const stMobileMenu = css({
     fontSize: theme.typography.ParagraphSmall.fontSize,
+    borderBottom: border,
+    marginBottom: `1rem`,
+    [theme.mediaQuery.medium]: {
+      display: `none`,
+    },
   });
 
-  const stMiniBadgeWrapper = css({
+  const stInner = css({
     display: `flex`,
-    flexDirection: `column-reverse`,
-    alignItems: `flex-end`,
-    position: `absolute`,
-    top: 0,
-    right: 0,
+    justifyContent: `flex-end`
   });
+
+  const [value, setValue] = React.useState([0, 14]);
+  const [selectValue, setSelectValue] = React.useState([]);
+  const [inputValue, setInputValue] = React.useState("");
 
   return (
     <Page>
+      <Block className={stMobileMenu}>
+      <ListingOuter>
+        <Block className={stInner}>
+        <Button
+          endEnhancer={<BiFilterAlt />}
+          kind={KIND.tertiary}
+          size={SIZE.compact}
+          onClick={() => setFilterOpen((actual) => !actual)}
+        >
+          <LabelXSmall>Filter</LabelXSmall>
+        </Button>
+        </Block>
+        </ListingOuter>
+      </Block>
       <ListingOuter>
         <Block className={stListing}>
-          <StickyBox className={stListingFilter}> Filtro </StickyBox>
+          <Block className={stListingFilter}>
+            <HeadingXSmall marginTop={0}>Filters</HeadingXSmall>
+
+            <LabelMedium marginBottom="scale100">Keyword</LabelMedium>
+            <Input
+              value={inputValue}
+              onChange={(e) => setInputValue(e.currentTarget.value)}
+              clearOnEscape
+              placeholder="Type here"
+            />
+
+            <LabelMedium marginTop="scale600" marginBottom="scale100">
+              pH Range
+            </LabelMedium>
+            <Slider
+              value={value}
+              min={0}
+              max={14}
+              onChange={({ value }) => setValue(value)}
+            />
+
+            <LabelMedium marginBottom="scale100">Temperature Range</LabelMedium>
+            <Slider
+              value={value}
+              min={0}
+              max={40}
+              onChange={({ value }) => setValue(value)}
+            />
+
+            <LabelMedium marginBottom="scale100">Habit</LabelMedium>
+            <Select
+              options={[
+                { label: "Emergent", id: "#F0F8FF" },
+                { label: "Submerged", id: "#FAEBD7" },
+                { label: "Floating", id: "#00FFFF" },
+              ]}
+              value={selectValue}
+              multi
+              // size={SIZE.compact}
+              onChange={(params: any) => setSelectValue(params.value)}
+            />
+
+            <LabelMedium marginTop="scale600" marginBottom="scale100">
+              Illumination
+            </LabelMedium>
+            <Checkbox checked={true} onChange={() => {}}>
+              Low
+            </Checkbox>
+            <Checkbox checked={!true} onChange={() => {}}>
+              Moderated
+            </Checkbox>
+            <Checkbox checked={!true} onChange={() => {}}>
+              Intense
+            </Checkbox>
+
+            <LabelMedium marginTop="scale600" marginBottom="scale100">
+              Growth
+            </LabelMedium>
+            <Checkbox checked={true} onChange={() => {}}>
+              Slow
+            </Checkbox>
+            <Checkbox checked={!true} onChange={() => {}}>
+              Moderated
+            </Checkbox>
+            <Checkbox checked={!true} onChange={() => {}}>
+              Fast
+            </Checkbox>
+
+            <Button
+              shape={SHAPE.pill}
+              overrides={{
+                BaseButton: { style: { width: "100%", marginTop: `2rem`, marginBottom: `2rem` } },
+              }}
+              onClick={() => alert("click")}
+            >
+              Aplly Filters
+            </Button>
+          </Block>
           <Block className={stListingCards}>
-            <Block className={stCard}>
-              <Block className={stCardTop}>
-                <img
-                  className={stCardTopImage}
-                  src="https://i.imgur.com/9j1IMzN.png"
-                  // src="https://i.imgur.com/xeEpmtt.png"
-                  // src="https://i.imgur.com/6h90zd3.png"
-                />
-                <Block className={stMiniBadgeWrapper}>
-                  <MiniBadge
-                    color="#FDEFAA"
-                    text="Low"
-                    icon={<IoBulbOutline />}
-                  />
+            <Card
+              img="https://i.imgur.com/9j1IMzN.png"
+              name="Anubias Barteri"
+              nameAlt="var. Nana"
+            />
 
-                  <MiniBadge
-                    color="#c2c2f5"
-                    text="6 to 9"
-                    icon={<IoFlaskOutline />}
-                  />
+            <Card
+              img="https://i.imgur.com/6h90zd3.png"
+              name="Hygrofila Carymbosa"
+              nameAlt="var. Siameses"
+            />
 
-                  <MiniBadge
-                    color="#F8D1BF"
-                    text="15 to 23°C"
-                    icon={<IoThermometerOutline />}
-                  />
-                </Block>
-              </Block>
-              <Block className={stCardAbout}>
-                <Block className={stCardAboutName}>
-                  Anubias Barteri
-                  <Block className={stCardAboutNameVar}>var. Nana</Block>
-                </Block>
-              </Block>
-            </Block>
+            <Card
+              img="https://i.imgur.com/xeEpmtt.png"
+              name="Rotala Besoluta"
+              nameAlt="var. None"
+            />
+
+            <Card
+              img="https://i.imgur.com/9j1IMzN.png"
+              name="Anubias Barteri"
+              nameAlt="var. Nana"
+            />
+
+            <Card
+              img="https://i.imgur.com/9j1IMzN.png"
+              name="Anubias Barteri"
+              nameAlt="var. Nana"
+            />
+
+            <Card
+              img="https://i.imgur.com/9j1IMzN.png"
+              name="Anubias Barteri"
+              nameAlt="var. Nana"
+            />
+
+            <Card
+              img="https://i.imgur.com/6h90zd3.png"
+              name="Hygrofila Carymbosa"
+              nameAlt="var. Siameses"
+            />
+
+            <Card
+              img="https://i.imgur.com/xeEpmtt.png"
+              name="Rotala Besoluta"
+              nameAlt="var. None"
+            />
+
+            <Card
+              img="https://i.imgur.com/9j1IMzN.png"
+              name="Anubias Barteri"
+              nameAlt="var. Nana"
+            />
+
+            <Card
+              img="https://i.imgur.com/9j1IMzN.png"
+              name="Anubias Barteri"
+              nameAlt="var. Nana"
+            />
+
+            <Card
+              img="https://i.imgur.com/9j1IMzN.png"
+              name="Anubias Barteri"
+              nameAlt="var. Nana"
+            />
+
+            <Card
+              img="https://i.imgur.com/6h90zd3.png"
+              name="Hygrofila Carymbosa"
+              nameAlt="var. Siameses"
+            />
+
+            <Card
+              img="https://i.imgur.com/xeEpmtt.png"
+              name="Rotala Besoluta"
+              nameAlt="var. None"
+            />
+
+            <Card
+              img="https://i.imgur.com/9j1IMzN.png"
+              name="Anubias Barteri"
+              nameAlt="var. Nana"
+            />
+
+            <Card
+              img="https://i.imgur.com/9j1IMzN.png"
+              name="Anubias Barteri"
+              nameAlt="var. Nana"
+            />
+
+            <Card
+              img="https://i.imgur.com/9j1IMzN.png"
+              name="Anubias Barteri"
+              nameAlt="var. Nana"
+            />
+
+            <Card
+              img="https://i.imgur.com/6h90zd3.png"
+              name="Hygrofila Carymbosa"
+              nameAlt="var. Siameses"
+            />
+
+            <Card
+              img="https://i.imgur.com/xeEpmtt.png"
+              name="Rotala Besoluta"
+              nameAlt="var. None"
+            />
+
+            <Card
+              img="https://i.imgur.com/9j1IMzN.png"
+              name="Anubias Barteri"
+              nameAlt="var. Nana"
+            />
+
+            <Card
+              img="https://i.imgur.com/9j1IMzN.png"
+              name="Anubias Barteri"
+              nameAlt="var. Nana"
+            />
           </Block>
         </Block>
       </ListingOuter>
@@ -134,7 +333,9 @@ const Listing: React.FC<ListingProps> = () => {
 const ListingOuter: React.FC = ({ children }) => {
   return (
     <Grid>
-      <Cell span={12}>{children}</Cell>
+      <Cell span={12} 
+      // overrides={{ Cell: { style: { position: `relative` } } }}
+      >{children}</Cell>
     </Grid>
   );
 };
