@@ -26,27 +26,34 @@ const Showroom: React.FC<ShowroomProps> = () => {
   const [inputValue, setInputValue] = React.useState("");
 
   const szdrawer = {
+    small: `100vw`,
     medium: `30vw`,
     large: `20vw`,
   };
 
   const stListing = css({
     display: `flex`,
-    marginLeft: szdrawer.large,
-    width: `calc(100vw - ${szdrawer.large})`,
     backgroundColor: theme.colors.background,
+    width: `calc(100vw - ${szdrawer.large})`,
+    
+    [theme.mediaQuery.medium]: {
+      width: `calc(100vw - ${szdrawer.medium})`,
+      marginLeft: szdrawer.medium,
+    },
+    [theme.mediaQuery.large]: {
+      width: `calc(100vw - ${szdrawer.large})`,
+      marginLeft: szdrawer.large,
+    },
   });
 
   const stListingContent = css({
-    backgroundColor: theme.colors.backgroundPrimary,
     width: `100%`,
     display: `grid`,
     gridTemplateColumns: `1fr 1fr`,
-    gridGap: theme.sizing.scale200,
+    backgroundColor: theme.colors.backgroundPrimary,
 
     [theme.mediaQuery.medium]: {
       gridTemplateColumns: `1fr 1fr 1fr 1fr`,
-      gridGap: 0,
       paddingRight: theme.sizing.scale600,
       paddingTop: theme.sizing.scale600,
       paddingLeft: theme.sizing.scale600,
@@ -59,14 +66,22 @@ const Showroom: React.FC<ShowroomProps> = () => {
 
   const stDrawer = css({
     display: `flex`,
-    position: `fixed`,
-    Top: SIZES.navbarHeight,
-    margin: 0,
-    width: szdrawer.large,
     flexDirection: `column`,
+    position: `fixed`,
+    // top: SIZES.navbarHeight,
     backgroundColor: theme.colors.background,
     height: `100%`,
     borderRight: border,
+    zIndex: 2,
+    width: szdrawer.small,
+    // paddingBottom: `200px`,
+
+    [theme.mediaQuery.medium]: {
+      width: szdrawer.medium,
+    },
+    [theme.mediaQuery.large]: {
+      width: szdrawer.large,
+    },
 
     overflowY: `auto`,
     "::-webkit-scrollbar": {
@@ -87,6 +102,7 @@ const Showroom: React.FC<ShowroomProps> = () => {
     display: `flex`,
     flexDirection: `column`,
     padding: theme.sizing.scale600,
+
   });
 
   return (

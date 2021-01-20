@@ -14,16 +14,15 @@ const Navbar: React.FC<{}> = () => {
   const border = `${currentBorder.borderWidth} ${currentBorder.borderStyle} ${currentBorder.borderColor}`;
 
   const stNavbar = css({
+    height: SIZES.navbarHeight,
     margin: 0, 
-    padding: 0,
-    zIndex: 99999,
+    zIndex: 9,
     backgroundColor: theme.colors.background,
     display: `flex`,
     flexDirection: `row`,
     alignItems: `center`,
     alignContent: `center`,
     borderBottom: border,
-    height: SIZES.navbarHeight,
     justifyContent: `space-between`,
     paddingLeft: theme.sizing.scale600,
     paddingRight: theme.sizing.scale600,
