@@ -2,13 +2,26 @@ import { useStyletron } from "baseui";
 import { AppNavBar, NavItemT } from "baseui/app-nav-bar";
 import { Block } from "baseui/block";
 import * as React from "react";
+import { StyleObject } from "styletron-react";
 
 const Navbar: React.FC<{}> = () => {
-  const [items, setItems] = React.useState<NavItemT[]>([{ 
-    label: `About` 
-  }]);
+  const [items, setItems] = React.useState<NavItemT[]>([
+    {
+      label: `About`,
+    },
+  ]);
 
-  return <AppNavBar title="florestario" mainItems={items} />;
+  const reset: StyleObject = {
+    margin: 0, 
+    padding: 0,
+    zIndex: 99999,
+  }
+
+  return (
+    <Block $style={reset}>
+      <AppNavBar title="florestario" mainItems={items} />
+    </Block>
+  );
 };
 
 export interface PageProps {}

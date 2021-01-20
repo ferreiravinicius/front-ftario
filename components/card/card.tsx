@@ -48,7 +48,7 @@ const Card: React.FC<CardProps> = ({ img, name, nameAlt }) => {
   const stCardAbout = css({
     backgroundColor: theme.colors.backgroundPrimary,
     padding: theme.sizing.scale600,
-    zIndex: 99,
+    // zIndex: 2,
   });
 
   const stCardAboutName = css({

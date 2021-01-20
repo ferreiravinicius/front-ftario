@@ -100,7 +100,8 @@ const Listing: React.FC<ListingProps> = () => {
 
   const stInner = css({
     display: `flex`,
-    justifyContent: `flex-end`
+    justifyContent: `flex-end`,
+    color: theme.colors.contentSecondary
   });
 
   const [value, setValue] = React.useState([0, 14]);
@@ -113,12 +114,12 @@ const Listing: React.FC<ListingProps> = () => {
       <ListingOuter>
         <Block className={stInner}>
         <Button
-          endEnhancer={<BiFilterAlt />}
+          endEnhancer={<BiFilterAlt color={theme.colors.contentSecondary} />}
           kind={KIND.tertiary}
           size={SIZE.compact}
           onClick={() => setFilterOpen((actual) => !actual)}
         >
-          <LabelXSmall>Filter</LabelXSmall>
+          <LabelSmall color="contentSecondary">Filter</LabelSmall>
         </Button>
         </Block>
         </ListingOuter>
