@@ -1,25 +1,49 @@
 import { useStyletron } from "baseui";
 import { AppNavBar, NavItemT } from "baseui/app-nav-bar";
 import { Block } from "baseui/block";
+import { LabelMedium } from "baseui/typography";
 import * as React from "react";
 import { StyleObject } from "styletron-react";
+import { SIZES } from "../../utils/constants";
 
 const Navbar: React.FC<{}> = () => {
-  const [items, setItems] = React.useState<NavItemT[]>([
-    {
-      label: `About`,
-    },
-  ]);
 
-  const reset: StyleObject = {
+  const [css, theme] = useStyletron();
+
+  const currentBorder = theme.borders.border200;
+  const border = `${currentBorder.borderWidth} ${currentBorder.borderStyle} ${currentBorder.borderColor}`;
+
+  const stNavbar = css({
     margin: 0, 
     padding: 0,
     zIndex: 99999,
-  }
+    backgroundColor: theme.colors.background,
+    display: `flex`,
+    flexDirection: `row`,
+    alignItems: `center`,
+    alignContent: `center`,
+    borderBottom: border,
+    height: SIZES.navbarHeight,
+    justifyContent: `space-between`,
+    paddingLeft: theme.sizing.scale600,
+    paddingRight: theme.sizing.scale600,
+  });
+
+  const stNavbarLogo = css({
+  });
+
+  const stNavbarMenu = css({
+  });
 
   return (
-    <Block $style={reset}>
-      <AppNavBar title="florestario" mainItems={items} />
+    <Block className={stNavbar}>
+      <Block className={stNavbarLogo}>
+        <LabelMedium>florestario</LabelMedium>
+      </Block>
+
+      <Block className={stNavbarMenu}>
+        Store About
+      </Block>
     </Block>
   );
 };

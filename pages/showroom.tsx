@@ -9,6 +9,7 @@ import { LabelMedium } from "baseui/typography";
 import * as React from "react";
 import Card from "../components/card/card";
 import Page from "../components/common/page";
+import { SIZES } from "../utils/constants";
 
 export interface ShowroomProps {}
 
@@ -59,11 +60,12 @@ const Showroom: React.FC<ShowroomProps> = () => {
   const stDrawer = css({
     display: `flex`,
     position: `fixed`,
-    top: 0,
-    bottom: 0,
+    Top: SIZES.navbarHeight,
+    margin: 0,
     width: szdrawer.large,
     flexDirection: `column`,
     backgroundColor: theme.colors.background,
+    height: `100%`,
     borderRight: border,
 
     overflowY: `auto`,
