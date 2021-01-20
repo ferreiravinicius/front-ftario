@@ -1,33 +1,16 @@
 import { useStyletron } from "baseui";
 import { Block } from "baseui/block";
-import { ALIGNMENT, Cell, Grid } from "baseui/layout-grid";
-import * as React from "react";
-import Page from "../components/common/page";
-import StickyBox from "react-sticky-box";
-import {
-  IoBulbOutline,
-  IoFlaskOutline,
-  IoLeafOutline,
-  IoThermometerOutline,
-  IoWaterOutline,
-} from "react-icons/io5";
-import MiniBadge from "../components/badge/mini-badge";
-import Card from "../components/card/card";
-import { Slider } from "baseui/slider";
-import {
-  HeadingSmall,
-  HeadingXSmall,
-  LabelMedium,
-  LabelSmall,
-  LabelXSmall,
-} from "baseui/typography";
-import { Select } from "baseui/select";
 import { Button, KIND, SHAPE, SIZE } from "baseui/button";
-import { StyledBody, StyledAction } from "baseui/card";
 import { Checkbox } from "baseui/checkbox";
 import { Input } from "baseui/input";
-import { IoFilter } from "react-icons/io5";
+import { Cell, Grid } from "baseui/layout-grid";
+import { Select } from "baseui/select";
+import { Slider } from "baseui/slider";
+import { HeadingXSmall, LabelMedium, LabelSmall } from "baseui/typography";
+import * as React from "react";
 import { BiFilterAlt } from "react-icons/bi";
+import Card from "../components/card/card";
+import Page from "../components/common/page";
 
 export interface ListingProps {}
 
@@ -101,7 +84,7 @@ const Listing: React.FC<ListingProps> = () => {
   const stInner = css({
     display: `flex`,
     justifyContent: `flex-end`,
-    color: theme.colors.contentSecondary
+    color: theme.colors.contentSecondary,
   });
 
   const [value, setValue] = React.useState([0, 14]);
@@ -111,17 +94,19 @@ const Listing: React.FC<ListingProps> = () => {
   return (
     <Page>
       <Block className={stMobileMenu}>
-      <ListingOuter>
-        <Block className={stInner}>
-        <Button
-          endEnhancer={<BiFilterAlt color={theme.colors.contentSecondary} />}
-          kind={KIND.tertiary}
-          size={SIZE.compact}
-          onClick={() => setFilterOpen((actual) => !actual)}
-        >
-          <LabelSmall color="contentSecondary">Filter</LabelSmall>
-        </Button>
-        </Block>
+        <ListingOuter>
+          <Block className={stInner}>
+            <Button
+              endEnhancer={
+                <BiFilterAlt color={theme.colors.contentSecondary} />
+              }
+              kind={KIND.tertiary}
+              size={SIZE.compact}
+              onClick={() => setFilterOpen((actual) => !actual)}
+            >
+              <LabelSmall color="contentSecondary">Filter</LabelSmall>
+            </Button>
+          </Block>
         </ListingOuter>
       </Block>
       <ListingOuter>
@@ -197,7 +182,13 @@ const Listing: React.FC<ListingProps> = () => {
             <Button
               shape={SHAPE.pill}
               overrides={{
-                BaseButton: { style: { width: "100%", marginTop: `2rem`, marginBottom: `2rem` } },
+                BaseButton: {
+                  style: {
+                    width: "100%",
+                    marginTop: `2rem`,
+                    marginBottom: `2rem`,
+                  },
+                },
               }}
               onClick={() => alert("click")}
             >
@@ -334,9 +325,12 @@ const Listing: React.FC<ListingProps> = () => {
 const ListingOuter: React.FC = ({ children }) => {
   return (
     <Grid>
-      <Cell span={12} 
-      // overrides={{ Cell: { style: { position: `relative` } } }}
-      >{children}</Cell>
+      <Cell
+        span={12}
+        // overrides={{ Cell: { style: { position: `relative` } } }}
+      >
+        {children}
+      </Cell>
     </Grid>
   );
 };

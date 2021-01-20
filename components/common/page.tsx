@@ -41,10 +41,16 @@ const Page: React.FC<PageProps> = ({ children }) => {
     overflowX: `hidden`,
   });
 
+  const stPageContent = css({
+    display: `flex`,
+    height: `100%`,
+    width: `100%`,
+  });
+
   return (
     <Block className={stPage}>
       <Navbar />
-      <Block>{children}</Block>
+      <Block className={stPageContent}>{children}</Block>
     </Block>
   );
 };

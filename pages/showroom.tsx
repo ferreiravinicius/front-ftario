@@ -1,17 +1,14 @@
 import { useStyletron } from "baseui";
 import { Block } from "baseui/block";
-import { Button, KIND, SHAPE, SIZE } from "baseui/button";
+import { Button, SHAPE } from "baseui/button";
 import { Checkbox } from "baseui/checkbox";
 import { Input } from "baseui/input";
-import { Cell, Grid } from "baseui/layout-grid";
 import { Select } from "baseui/select";
 import { Slider } from "baseui/slider";
-import { HeadingXSmall, LabelMedium, LabelSmall } from "baseui/typography";
+import { LabelMedium } from "baseui/typography";
 import * as React from "react";
-import { BiFilterAlt } from "react-icons/bi";
 import Card from "../components/card/card";
 import Page from "../components/common/page";
-import { Drawer, SIZE as drawerSIZE, ANCHOR } from "baseui/drawer";
 
 export interface ShowroomProps {}
 
@@ -20,26 +17,26 @@ const Showroom: React.FC<ShowroomProps> = () => {
 
   const [isFilterOpen, setFilterOpen] = React.useState(false);
 
-  const szDrawer = {
-    medium: `32vw`,
+  const currentBorder = theme.borders.border200;
+  const border = `${currentBorder.borderWidth} ${currentBorder.borderStyle} ${currentBorder.borderColor}`;
+
+  const [value, setValue] = React.useState([0, 14]);
+  const [selectValue, setSelectValue] = React.useState([]);
+  const [inputValue, setInputValue] = React.useState("");
+
+  const szdrawer = {
+    medium: `30vw`,
     large: `20vw`,
   };
 
   const stListing = css({
-    marginTop: `1px`,
     display: `flex`,
-    position: `absolute`,
-    right: 0,
-
-    [theme.mediaQuery.medium]: {
-      width: `calc(100vw - ${szDrawer.medium})`,
-    },
-    [theme.mediaQuery.large]: {
-      width: `calc(100vw - ${szDrawer.large})`,
-    },
+    marginLeft: szdrawer.large,
+    width: `calc(100vw - ${szdrawer.large})`,
+    backgroundColor: theme.colors.background,
   });
 
-  const stListingCards = css({
+  const stListingContent = css({
     backgroundColor: theme.colors.backgroundPrimary,
     width: `100%`,
     display: `grid`,
@@ -48,7 +45,7 @@ const Showroom: React.FC<ShowroomProps> = () => {
 
     [theme.mediaQuery.medium]: {
       gridTemplateColumns: `1fr 1fr 1fr 1fr`,
-      gridGap: theme.sizing.scale400,
+      gridGap: 0,
       paddingRight: theme.sizing.scale600,
       paddingTop: theme.sizing.scale600,
       paddingLeft: theme.sizing.scale600,
@@ -59,76 +56,41 @@ const Showroom: React.FC<ShowroomProps> = () => {
     },
   });
 
-  const currentBorder = theme.borders.border200;
-  const border = `${currentBorder.borderWidth} ${currentBorder.borderStyle} ${currentBorder.borderColor}`;
+  const stDrawer = css({
+    display: `flex`,
+    position: `fixed`,
+    top: 0,
+    bottom: 0,
+    width: szdrawer.large,
+    flexDirection: `column`,
+    backgroundColor: theme.colors.background,
+    borderRight: border,
 
-  const stDrawerContent = css({
-    width: `100%`,
+    overflowY: `auto`,
+    "::-webkit-scrollbar": {
+      width: `6px`,
+      backgroundColor: theme.colors.background,
+    },
+    "::-webkit-scrollbar-track": {
+      borderRadius: `10px`,
+      backgroundColor: theme.colors.background,
+    },
+    "::-webkit-scrollbar-thumb": {
+      borderRadius: `10px`,
+      backgroundColor: `rgba(0, 0, 0, .1)`,
+    },
   });
 
-  const [value, setValue] = React.useState([0, 14]);
-  const [selectValue, setSelectValue] = React.useState([]);
-  const [inputValue, setInputValue] = React.useState("");
+  const stDrawerContent = css({
+    display: `flex`,
+    flexDirection: `column`,
+    padding: theme.sizing.scale600,
+  });
 
   return (
     <Page>
-      <Drawer
-        isOpen
-        closeable
-        showBackdrop
-        anchor={ANCHOR.left}
-        size={drawerSIZE.auto}
-        overrides={{
-          Backdrop: {
-            style: {
-              [theme.mediaQuery.medium]: {
-                display: `none`,
-              },
-            },
-          },
-          Close: {
-            style: {
-              marginTop: theme.sizing.scale1400,
-              [theme.mediaQuery.medium]: {
-                display: `none`,
-              },
-            },
-          },
-          DrawerContainer: {
-            style: {
-              width: `100vw`,
-              paddingTop: theme.sizing.scale1400,
-              [theme.mediaQuery.medium]: {
-                borderRight: border,
-                marginTop: 0,
-                paddingTop: theme.sizing.scale1400,
-                width: szDrawer.medium,
-              },
-              [theme.mediaQuery.large]: {
-                width: szDrawer.large,
-              },
-            },
-          },
-          DrawerBody: {
-            //TODO: delete if not necessary
-            style: {
-              paddingBottom: theme.sizing.scale800,
-              [theme.mediaQuery.medium]: {},
-            },
-          },
-          Root: {
-            style: {
-              [theme.mediaQuery.medium]: {
-                width: `0vw`,
-                backgroundColor: `red`,
-              },
-            },
-          },
-        }}
-      >
+      <Block className={stDrawer}>
         <Block className={stDrawerContent}>
-          <HeadingXSmall marginTop={0}>Filters</HeadingXSmall>
-
           <LabelMedium marginBottom="scale100">Keyword</LabelMedium>
           <Input
             value={inputValue}
@@ -210,38 +172,19 @@ const Showroom: React.FC<ShowroomProps> = () => {
             Aplly Filters
           </Button>
         </Block>
-      </Drawer>
+      </Block>
       <Block className={stListing}>
-        <Block className={stListingCards}>
+        <Block className={stListingContent}>
           <Card
             img="https://i.imgur.com/9j1IMzN.png"
             name="Anubias Barteri"
             nameAlt="var. Nana"
           />
-
           <Card
             img="https://i.imgur.com/6h90zd3.png"
             name="Hygrofila Carymbosa"
             nameAlt="var. Siameses"
           />
-
-          <Card
-            img="https://i.imgur.com/xeEpmtt.png"
-            name="Rotala Besoluta"
-            nameAlt="var. None"
-          />
-          <Card
-            img="https://i.imgur.com/9j1IMzN.png"
-            name="Anubias Barteri"
-            nameAlt="var. Nana"
-          />
-
-          <Card
-            img="https://i.imgur.com/6h90zd3.png"
-            name="Hygrofila Carymbosa"
-            nameAlt="var. Siameses"
-          />
-
           <Card
             img="https://i.imgur.com/xeEpmtt.png"
             name="Rotala Besoluta"
@@ -249,28 +192,31 @@ const Showroom: React.FC<ShowroomProps> = () => {
           />
 
           <Card
-            img="https://i.imgur.com/xeEpmtt.png"
-            name="Rotala Besoluta"
-            nameAlt="var. None"
-          />
-          <Card
             img="https://i.imgur.com/9j1IMzN.png"
             name="Anubias Barteri"
             nameAlt="var. Nana"
           />
-
-          <Card
-            img="https://i.imgur.com/9j1IMzN.png"
-            name="Anubias Barteri"
-            nameAlt="var. Nana"
-          />
-
           <Card
             img="https://i.imgur.com/6h90zd3.png"
             name="Hygrofila Carymbosa"
             nameAlt="var. Siameses"
           />
+          <Card
+            img="https://i.imgur.com/xeEpmtt.png"
+            name="Rotala Besoluta"
+            nameAlt="var. None"
+          />
 
+          <Card
+            img="https://i.imgur.com/9j1IMzN.png"
+            name="Anubias Barteri"
+            nameAlt="var. Nana"
+          />
+          <Card
+            img="https://i.imgur.com/6h90zd3.png"
+            name="Hygrofila Carymbosa"
+            nameAlt="var. Siameses"
+          />
           <Card
             img="https://i.imgur.com/xeEpmtt.png"
             name="Rotala Besoluta"
