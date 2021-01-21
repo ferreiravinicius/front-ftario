@@ -1,5 +1,7 @@
 export const SIZES = {
-  navbarHeight: `8vh`,
+  navbar: {
+    height: `8vh`,
+  }
 }
 
 export default { SIZES };

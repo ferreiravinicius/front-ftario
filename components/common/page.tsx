@@ -7,41 +7,39 @@ import { StyleObject } from "styletron-react";
 import { SIZES } from "../../utils/constants";
 
 const Navbar: React.FC<{}> = () => {
-
   const [css, theme] = useStyletron();
 
   const currentBorder = theme.borders.border200;
   const border = `${currentBorder.borderWidth} ${currentBorder.borderStyle} ${currentBorder.borderColor}`;
 
   const stNavbar = css({
-    height: SIZES.navbarHeight,
-    margin: 0, 
-    zIndex: 9,
-    backgroundColor: theme.colors.background,
     display: `flex`,
-    flexDirection: `row`,
     alignItems: `center`,
-    alignContent: `center`,
     borderBottom: border,
+    height: SIZES.navbar.height,
     justifyContent: `space-between`,
     paddingLeft: theme.sizing.scale600,
     paddingRight: theme.sizing.scale600,
+    backgroundColor: theme.colors.background,
   });
 
-  const stNavbarLogo = css({
+  const stWrapper = css({
+    //some black magic made me use this to heigh works (do not remove the wrapper)
+    zIndex: 9,
   });
 
-  const stNavbarMenu = css({
-  });
+  const stNavbarLogo = css({});
+
+  const stNavbarMenu = css({});
 
   return (
-    <Block className={stNavbar}>
-      <Block className={stNavbarLogo}>
-        <LabelMedium>florestario</LabelMedium>
-      </Block>
+    <Block className={stWrapper}>
+      <Block className={stNavbar}>
+        <Block className={stNavbarLogo}>
+          <LabelMedium>florestario</LabelMedium>
+        </Block>
 
-      <Block className={stNavbarMenu}>
-        Store About
+        <Block className={stNavbarMenu}>Store About</Block>
       </Block>
     </Block>
   );

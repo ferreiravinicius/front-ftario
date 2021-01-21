@@ -1,6 +1,6 @@
 import { useStyletron } from "baseui";
 import { Block } from "baseui/block";
-import { Button, SHAPE } from "baseui/button";
+import { Button, SHAPE, SIZE } from "baseui/button";
 import { Checkbox } from "baseui/checkbox";
 import { Input } from "baseui/input";
 import { Select } from "baseui/select";
@@ -10,6 +10,7 @@ import * as React from "react";
 import Card from "../components/card/card";
 import Page from "../components/common/page";
 import { SIZES } from "../utils/constants";
+import { scrollbar } from "../utils/css";
 
 export interface ShowroomProps {}
 
@@ -32,17 +33,20 @@ const Showroom: React.FC<ShowroomProps> = () => {
   };
 
   const stListing = css({
-    display: `flex`,
+    display: isFilterOpen ? `none` : `flex`,
     backgroundColor: theme.colors.background,
-    width: `calc(100vw - ${szdrawer.large})`,
+    padding: theme.sizing.scale600,
+    width: `100vw`,
     
     [theme.mediaQuery.medium]: {
-      width: `calc(100vw - ${szdrawer.medium})`,
+      display: `flex`,
       marginLeft: szdrawer.medium,
+      width: `calc(100vw - ${szdrawer.medium})`,
     },
     [theme.mediaQuery.large]: {
-      width: `calc(100vw - ${szdrawer.large})`,
+      display: `flex`,
       marginLeft: szdrawer.large,
+      width: `calc(100vw - ${szdrawer.large})`,
     },
   });
 
@@ -50,64 +54,63 @@ const Showroom: React.FC<ShowroomProps> = () => {
     width: `100%`,
     display: `grid`,
     gridTemplateColumns: `1fr 1fr`,
+    gridGap: theme.sizing.scale100,
     backgroundColor: theme.colors.backgroundPrimary,
+
 
     [theme.mediaQuery.medium]: {
       gridTemplateColumns: `1fr 1fr 1fr 1fr`,
-      paddingRight: theme.sizing.scale600,
-      paddingTop: theme.sizing.scale600,
-      paddingLeft: theme.sizing.scale600,
-      paddingBottom: theme.sizing.scale600,
+      gridGap: 0,
     },
     [theme.mediaQuery.large]: {
       gridTemplateColumns: `1fr 1fr 1fr 1fr 1fr`,
+      gridGap: 0,
     },
   });
 
+
   const stDrawer = css({
-    display: `flex`,
-    flexDirection: `column`,
-    position: `fixed`,
-    // top: SIZES.navbarHeight,
-    backgroundColor: theme.colors.background,
-    height: `100%`,
-    borderRight: border,
+    // ...scrollbar(theme),
     zIndex: 2,
+    // borderRight: border,
+    // backgroundColor: theme.colors.background,
+    backgroundColor: `red`,
     width: szdrawer.small,
-    // paddingBottom: `200px`,
+    display: isFilterOpen ? `block` : `none`,
 
     [theme.mediaQuery.medium]: {
       width: szdrawer.medium,
+      display: `block`,
+      position: `fixed`,
+      overflowY: `scroll`
     },
     [theme.mediaQuery.large]: {
       width: szdrawer.large,
+      display: `block`,
+      position: `fixed`,
     },
+  });
 
-    overflowY: `auto`,
-    "::-webkit-scrollbar": {
-      width: `6px`,
-      backgroundColor: theme.colors.background,
-    },
-    "::-webkit-scrollbar-track": {
-      borderRadius: `10px`,
-      backgroundColor: theme.colors.background,
-    },
-    "::-webkit-scrollbar-thumb": {
-      borderRadius: `10px`,
-      backgroundColor: `rgba(0, 0, 0, .1)`,
-    },
+  const stBlank = css({
+
   });
 
   const stDrawerContent = css({
     display: `flex`,
     flexDirection: `column`,
-    padding: theme.sizing.scale600,
+    backgroundColor: `yellow`,
 
+    [theme.mediaQuery.medium]: {
+      display: `block`,
+      // overflowY: `auto`,
+      // height: `100%`,
+      // padding: theme.sizing.scale600,
+    },
   });
 
   return (
     <Page>
-      <Block className={stDrawer}>
+      <Block className={stBlank}>
         <Block className={stDrawerContent}>
           <LabelMedium marginBottom="scale100">Keyword</LabelMedium>
           <Input
@@ -180,8 +183,7 @@ const Showroom: React.FC<ShowroomProps> = () => {
               BaseButton: {
                 style: {
                   width: "100%",
-                  marginTop: `2rem`,
-                  marginBottom: `2rem`,
+                  marginTop: theme.sizing.scale800,
                 },
               },
             }}
