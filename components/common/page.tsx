@@ -26,6 +26,9 @@ const Navbar: React.FC<{}> = () => {
   const stWrapper = css({
     //some black magic made me use this to heigh works (do not remove the wrapper)
     zIndex: 9,
+    position: `fixed`,
+    width: `100%`,
+    display: `block`
   });
 
   const stNavbarLogo = css({});
@@ -38,7 +41,6 @@ const Navbar: React.FC<{}> = () => {
         <Block className={stNavbarLogo}>
           <LabelMedium>florestario</LabelMedium>
         </Block>
-
         <Block className={stNavbarMenu}>Store About</Block>
       </Block>
     </Block>
@@ -55,15 +57,13 @@ const Page: React.FC<PageProps> = ({ children }) => {
     fontFamily: theme.typography.ParagraphMedium.fontFamily,
     margin: 0,
     padding: 0,
-    display: `flex`,
-    flexDirection: `column`,
     height: `100vh`,
     width: `100vw`,
-    overflowX: `hidden`,
   });
 
   const stPageContent = css({
-    display: `flex`,
+    display: `block`,
+    position: `relative`,
     height: `100%`,
     width: `100%`,
   });
