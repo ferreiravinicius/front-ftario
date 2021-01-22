@@ -7,7 +7,7 @@ import { Select } from "baseui/select";
 import { Slider } from "baseui/slider";
 import { LabelMedium } from "baseui/typography";
 import * as React from "react";
-import Card from "../components/card/card";
+import Card from "../components/molecules/card/card";
 import Page from "../components/common/page";
 import { SIZES } from "../utils/constants";
 import { IoOptionsOutline } from "react-icons/io5";

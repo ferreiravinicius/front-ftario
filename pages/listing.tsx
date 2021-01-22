@@ -9,7 +9,7 @@ import { Slider } from "baseui/slider";
 import { HeadingXSmall, LabelMedium, LabelSmall } from "baseui/typography";
 import * as React from "react";
 import { BiFilterAlt } from "react-icons/bi";
-import Card from "../components/card/card";
+import Card from "../components/molecules/card/card";
 import Page from "../components/common/page";
 
 export interface ListingProps {}
