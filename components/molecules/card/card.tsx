@@ -1,5 +1,4 @@
 import { useStyletron } from "baseui";
-import { AspectRatioBox, AspectRatioBoxBody } from "baseui/aspect-ratio-box";
 import { Block } from "baseui/block";
 import * as React from "react";
 import ImageBox from "../../atoms/image-box";
@@ -32,28 +31,10 @@ const Card: React.FC<CardProps> = ({ img, name, nameAlt }) => {
     fontSize: theme.typography.ParagraphSmall.fontSize,
   });
 
-  const stMiniBadgeWrapper = css({
-    display: `flex`,
-    flexDirection: `column-reverse`,
-    alignItems: `flex-end`,
-    position: `absolute`,
-    top: 0,
-    right: 0,
-  });
-
-  const ContainedImage = css({
-    height: `100%`,
-    width: `100%`,
-    objectFit: `contain`,
-  });
-
   return (
     <CardContainer>
       <CardHeader>
-        <ImageBox 
-          src={img}
-          width="424px"
-        />
+        <ImageBox src={img} width="424px" />
       </CardHeader>
       <Block className={stCardAbout}>
         <Block className={stCardAboutName}>

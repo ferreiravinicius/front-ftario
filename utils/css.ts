@@ -1,4 +1,4 @@
-import { Theme } from "baseui/theme";
+import { Border, Theme } from "baseui/theme";
 import { StyleObject } from "styletron-react";
 
 export const scrollbar = (theme: Theme): StyleObject => ({
@@ -15,5 +15,9 @@ export const scrollbar = (theme: Theme): StyleObject => ({
     backgroundColor: `rgba(0, 0, 0, .1)`,
   },
 });
+
+export const borderAbbr = (border: Border): string => {
+  return `${border.borderWidth} ${border.borderStyle} ${border.borderColor}`;
+}
 
 export default {};
