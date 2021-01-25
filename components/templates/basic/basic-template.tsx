@@ -4,7 +4,7 @@ import * as React from "react";
 import { SIZES } from "../../../utils/constants";
 import { borderAbbr } from "../../../utils/css";
 import MainPage from "../main-page/main-page";
-import { DrawerContainer } from "./css";
+import { SideContainer, TemplateContainer } from "./css";
 
 export interface BasicTemplateProps {}
 
@@ -13,19 +13,6 @@ const BasicTemplate: React.FC<BasicTemplateProps> = () => {
 
   const bd = theme.borders.border200;
   const border = `${bd.borderWidth} ${bd.borderStyle} ${bd.borderColor}`;
-
-  const stTemplate = css({
-    //do not add paddings/margins
-    backgroundColor: `lightcyan`,
-    color: theme.colors.contentPrimary,
-
-    [theme.mediaQuery.medium]: {
-      display: `block`,
-      position: `relative`,
-      width: `100%`,
-      height: `100%`,
-    },
-  });
 
   const stTemplateDrawerAction = css({
     
@@ -82,18 +69,19 @@ const BasicTemplate: React.FC<BasicTemplateProps> = () => {
 
   return (
     <MainPage>
-      <Block className={stTemplate}>
+      <TemplateContainer>
         {/* Drawer */}
-        <DrawerContainer open={false}>
-          <Block className={stTemplateDrawerAction}>Drawer Action</Block>
-          <Block className={stDrawerContent}>Drawer</Block>
-        </DrawerContainer>
+        <SideContainer open={false}>
+          Side
+          {/* <Block className={stTemplateDrawerAction}>Drawer Action</Block> */}
+          {/* <Block className={stDrawerContent}>Drawer</Block> */}
+        </SideContainer>
 
         {/* Main */}
         <Block className={stTemplateMain}>
           Main 
         </Block>
-      </Block>
+      </TemplateContainer>
     </MainPage>
   );
 };
