@@ -2,12 +2,17 @@ import { Button, ButtonOverrides } from "baseui/button";
 import * as React from "react";
 import { FilterBody, FilterContainer, FilterFooter } from "./css";
 
-export interface FilterProps {}
+export interface FilterProps {
+  form: React.ReactNode;
+}
 
-const Filter: React.FC<FilterProps> = () => { //TODO: implement context for filter
+const Filter: React.FC<FilterProps> = ({ form }) => { 
+  //TODO: implement context for filter
   return (
     <FilterContainer>
-      <FilterBody>Filter Body</FilterBody>
+      <FilterBody>
+        {form}
+      </FilterBody>
       <FilterFooter>
         <Button
           overrides={overrides}
