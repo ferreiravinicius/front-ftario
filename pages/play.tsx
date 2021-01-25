@@ -1,8 +1,13 @@
 import * as React from 'react';
-import BasicTemplate from '../components/templates/basic/basic-template';
+import Filter from '../components/organisms/filter/filter';
+import HideableSideTemplate from '../components/templates/hideable-side/hideable-side-template';
 
 export default function Home() {
   return (
-    <BasicTemplate />
+    <HideableSideTemplate
+      isSideOpen
+      mainContent={<>Teste</>}
+      sideContent={<Filter />}
+    />
   );
 }

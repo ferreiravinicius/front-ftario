@@ -1,6 +1,6 @@
 import { styled } from "baseui";
 import { SIZES } from "../../../utils/constants";
-import { borderAbbr } from "../../../utils/css";
+import { borderAbbr } from "../../../utils/css-utils";
 
 export const TemplateContainer = styled(`div`, ({ $theme }) => ({
   backgroundColor: `lightcyan`,
@@ -44,5 +44,29 @@ export const SideContainer = styled<SideContainerProps, `div`>(
     },
   })
 );
+
+export const MainContainer = styled(`div`, ({ $theme }) => ({
+  //do not add paddings/margins
+  width: `100vw`,
+  overflowY: "auto",
+  position: `absolute`,
+  top: SIZES.navbar.height,
+  backgroundColor: $theme.colors.background,
+  height: `calc(100vh - ${SIZES.navbar.height})`,
+
+  [$theme.mediaQuery.medium]: {
+    overflowY: "auto",
+    position: `absolute`,
+    top: SIZES.navbar.height,
+    left: SIZES.drawer.width.medium,
+    height: `calc(100vh - ${SIZES.navbar.height})`,
+    width: `calc(100vw - ${SIZES.drawer.width.medium})`,
+  },
+
+  [$theme.mediaQuery.large]: {
+    left: SIZES.drawer.width.large,
+    width: `calc(100vw - ${SIZES.drawer.width.large})`,
+  },
+}));
 
 export default {};

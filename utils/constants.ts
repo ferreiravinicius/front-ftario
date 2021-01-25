@@ -9,6 +9,9 @@ export const SIZES = {
       large: `20vw`,
     },
   },
+  filter: {
+    height: `80px`,
+  },
   drawerBottomBar: {
     height: `80px`,
   }

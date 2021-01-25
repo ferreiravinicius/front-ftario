@@ -1,7 +1,7 @@
 import { Border, Theme } from "baseui/theme";
 import { StyleObject } from "styletron-react";
 
-export const scrollbar = (theme: Theme): StyleObject => ({
+export const scrollbarAbbr = (theme: Theme): StyleObject => ({
   "::-webkit-scrollbar": {
     width: `6px`,
     backgroundColor: theme.colors.background,
